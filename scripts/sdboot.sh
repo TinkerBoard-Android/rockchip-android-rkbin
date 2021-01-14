@@ -73,9 +73,10 @@ do
     if [ "$i" == "$((${#PARTITION_NAME_LIST[*]} -1))" ];then
         parted -s ${GPT_IMG} -- unit s mkpart ${partition_name} ${partition_start}  -34s
     else
-        parted -s ${GPT_IMG} unit s mkpart ${partition_name} ${partition_start} ${partition_end}
         if [ "${partition_name}" == "idbloader" ];then
-            parted -s ${GPT_IMG} set $(($i + 1)) boot on
+            :
+	else
+            parted -s ${GPT_IMG} unit s mkpart ${partition_name} ${partition_start} ${partition_end}
         fi
     fi
 
